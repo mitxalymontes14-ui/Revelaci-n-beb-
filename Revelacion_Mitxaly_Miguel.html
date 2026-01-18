@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Revelación de género</title>
+  <style>
+    body {
+      background: #f3e7da;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .envelope {
+      width: 300px;
+      height: 200px;
+      margin: auto;
+      background: #e6d2b5;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 1s;
+    }
+    .envelope.open {
+      transform: translateY(-50px);
+    }
+    .text {
+      margin-top: 30px;
+      font-size: 24px;
+      display: none;
+    }
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: gold;
+      border-radius: 50%;
+      animation: sparkle 2s linear infinite;
+    }
+    @keyframes sparkle {
+      0% {opacity: 1; transform: translateY(0);}
+      100% {opacity: 0; transform: translateY(-100px);}
+    }
+  </style>
+</head>
+<body>
+
+<h2>Para nuestra familia</h2>
+
+<div class="envelope" id="envelope" onclick="openEnvelope()">
+  <p style="padding-top: 80px;">Toca para abrir</p>
+</div>
+
+<div class="text" id="reveal">
+  <p>Nuestra bebé será…</p>
+  <h1>UNA NIÑA 💕</h1>
+  <p>Con amor,<br>Mitxaly y Miguel</p>
+</div>
+
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b2a3b4f8d.mp3?filename=soft-piano-ambient-11157.mp3"></audio>
+
+<script>
+  function openEnvelope() {
+    const env = document.getElementById('envelope');
+    const music = document.getElementById('music');
+    const reveal = document.getElementById('reveal');
+
+    env.classList.add('open');
+    music.play().catch(()=>{});
+    createSparkles();
+
+    setTimeout(() => {
+      reveal.style.display = 'block';
+    }, 3000);
+  }
+
+  function createSparkles() {
+    for(let i = 0; i < 20; i++) {
+      let s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * window.innerWidth + 'px';
+      s.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(s);
+
+      setTimeout(() => {
+        s.remove();
+      }, 2000);
+    }
+  }
+</script>
+
+</body>
+</html>
